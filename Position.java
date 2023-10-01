@@ -88,8 +88,8 @@ public class Position {
      * ensure that the team member no longer has this position as their manager
      */
     public void removeFromTeam(Position teamMemb){
-        /*# YOUR CODE HERE */
-
+        team.remove(teamMemb);
+        teamMemb.manager = null;
     }
 
     // Simple getters and setters  ==================================
