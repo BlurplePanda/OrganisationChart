@@ -166,8 +166,8 @@ public class OrganisationChart {
         if (pos.on(x,y)) {
             ans = pos;
         }
-        if (ans == null) {
-            for (Position child : pos.getTeam()) {
+        for (Position child : pos.getTeam()) {
+            if (ans == null) {
                 ans = findPosition(x, y, child);
             }
         }
