@@ -197,8 +197,8 @@ public class OrganisationChart {
      */
     private void movePosition(Position pos, Position target) {
         if ((pos == null) || (target == null)){return;}   //invalid arguments.
-        /*# YOUR CODE HERE */
-
+        pos.getManager().removeFromTeam(pos);
+        target.addToTeam(pos);
     }
 
     /** [STEP 2:]
