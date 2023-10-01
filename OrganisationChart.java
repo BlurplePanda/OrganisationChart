@@ -152,7 +152,7 @@ public class OrganisationChart {
 
     }
 
-    /** 
+    /**
      * Find and return a Position that is currently placed over the point (x,y). 
      * Must do a recursive search of the subtree whose root is the given Position.
      * [STEP 2:] 
@@ -197,8 +197,10 @@ public class OrganisationChart {
      */
     private void movePosition(Position pos, Position target) {
         if ((pos == null) || (target == null)){return;}   //invalid arguments.
-        pos.getManager().removeFromTeam(pos);
-        target.addToTeam(pos);
+        if (!inSubtree(target, pos)) {
+            pos.getManager().removeFromTeam(pos);
+            target.addToTeam(pos);
+        }
     }
 
     /** [STEP 2:]
@@ -220,14 +222,16 @@ public class OrganisationChart {
     /** [COMPLETION:]
      * Return true if position is in the subtree, and false otherwise
      * Uses == to determine node equality
-     *  Check if positition is the same as the root of subTree
+     *  Check if position is the same as the root of subTree
      *  if not, check if in any of the subtrees of the team members of the root
      *  (recursive call, which must return true if it finds the position)
      */
     private boolean inSubtree(Position pos, Position subtree) {
-        /*# YOUR CODE HERE */
+        if (pos == subtree) { return true; }
+        for (Position child : subtree.getTeam()) {
+            if (inSubtree(pos, child)) { return true; }
+        }
         return false;
-
     }
 
     /**
