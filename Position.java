@@ -79,8 +79,8 @@ public class Position {
      */
     public void addToTeam(Position newMemb){
         if (newMemb == null) return;
-        /*# YOUR CODE HERE */
-
+        team.add(newMemb);
+        newMemb.manager = this;
     }
 
     /** [STEP 2:]
