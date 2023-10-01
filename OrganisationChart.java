@@ -180,8 +180,8 @@ public class OrganisationChart {
      * Check the arguments are valid first.
      */
     public void addNewPosition(Position newPos, Position target){
-        /*# YOUR CODE HERE */
-
+        if (newPos == null || target == null) { return; }
+        target.addToTeam(newPos);
     }
 
     /** [STEP 2:] 
