@@ -146,7 +146,9 @@ public class OrganisationChart {
             pos.draw();
         }
         //draw the nodes under pos
-        /*# YOUR CODE HERE */
+        for (Position child : pos.getTeam()) {
+            drawTree(child);
+        }
 
     }
 
