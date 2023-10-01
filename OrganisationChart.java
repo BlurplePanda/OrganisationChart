@@ -208,8 +208,13 @@ public class OrganisationChart {
      *  should now be no selected position
      */
     public void removePosition(Position pos){
-        /*# YOUR CODE HERE */
-
+        if (pos == null) { return; }
+        if (pos.getTeam().isEmpty()) {
+            pos.getManager().removeFromTeam(pos);
+            if (selectedPosition == pos) {
+                selectedPosition = null;
+            }
+        }
     }
 
     /** [COMPLETION:]
