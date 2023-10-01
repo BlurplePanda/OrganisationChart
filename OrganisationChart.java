@@ -161,8 +161,16 @@ public class OrganisationChart {
      * [Completion:] If (x,y) is under two Positions, it should return the top one.
      */
     private Position findPosition(double x, double y, Position pos){
-        Position ans = null;        
-        /*# YOUR CODE HERE */
+        Position ans = null;
+
+        if (pos.on(x,y)) {
+            ans = pos;
+        }
+        if (ans == null) {
+            for (Position child : pos.getTeam()) {
+                ans = findPosition(x, y, child);
+            }
+        }
 
         return ans;
     }
