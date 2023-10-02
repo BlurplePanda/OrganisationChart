@@ -37,6 +37,7 @@ public class OrganisationChart {
     public static final double ICON_Y = 100;   
     public static final double ICON_RAD = 20;   
 
+    private List<Position> drawOrder = new ArrayList<>();
 
     /**
      * Set up the GUI (buttons and mouse)
@@ -145,6 +146,7 @@ public class OrganisationChart {
         else {
             pos.draw();
         }
+        drawOrder.add(pos);
         //draw the nodes under pos
         for (Position child : pos.getTeam()) {
             drawTree(child);
@@ -161,18 +163,28 @@ public class OrganisationChart {
      * [Completion:] If (x,y) is under two Positions, it should return the top one.
      */
     private Position findPosition(double x, double y, Position pos){
-        Position ans = null;
-
-        if (pos.on(x,y)) {
-            ans = pos;
-        }
-        for (Position child : pos.getTeam()) {
-            if (ans == null) {
-                ans = findPosition(x, y, child);
+        List<Position> positions = findPositions(x, y, pos);
+        for (int i=drawOrder.size()-1; i >= 0; i--) {
+            if (positions.contains(drawOrder.get(i))) {
+                return drawOrder.get(i);
             }
         }
 
-        return ans;
+        return null;
+    }
+
+    /**
+     * Finds and returns (as list) all Positions under the x,y given
+     */
+    private List<Position> findPositions(double x, double y, Position pos) {
+        List<Position> found = new ArrayList<>();
+        if (pos.on(x,y)) {
+            found.add(pos);
+        }
+        for (Position child : pos.getTeam()) {
+            found.addAll(findPositions(x, y, child));
+        }
+        return found;
     }
 
     /** [STEP 2:] 
@@ -239,6 +251,7 @@ public class OrganisationChart {
      */
     private void redraw() {
         UI.clearGraphics();
+        drawOrder.clear();
         drawTree(organisation);
         drawNewIcon();
         drawRetireIcon();
