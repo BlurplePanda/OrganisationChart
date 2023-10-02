@@ -43,7 +43,7 @@ public class OrganisationChart {
      * Set up the GUI (buttons and mouse)
      */
     public void setupGUI(){
-        UI.setMouseListener( this::doMouse );
+        UI.setMouseMotionListener( this::doMouse );
         UI.addTextField("Change Role", this::setRole);
         UI.addButton("Load test tree",  this::makeTestTree); 
         UI.addButton("Quit", UI::quit);
@@ -95,6 +95,12 @@ public class OrganisationChart {
                 if (pressedPosition != null) {
                     pressedPosition.draw(false, true);
                 }
+            }
+        }
+        else if (action.equals("dragged")) {
+            if (pressedPosition != null) {
+                pressedPosition.moveOffset(x);
+                this.redraw();
             }
         }
         else if (action.equals("released")){
